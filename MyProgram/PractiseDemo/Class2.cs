@@ -4,8 +4,33 @@ using System.Text;
 
 namespace MyProgram.PractiseDemo
 {
+    //delegate is ref type in c#, it is type,declare inside the namespace
+    //singlecast delegates-single delegate hold reference of single method
+    public delegate void mydelegate1(string name);
+    class singlecast_dele 
+    {
+        public void Uppercase(string nm)
+        {
+            Console.WriteLine("Uppercase:"+nm.ToUpper());
+        }
+    }
+    class singlecast_deleTest
+    {
+        static void Main(string[] args)
+        {
+            singlecast_dele s1 = new singlecast_dele();
+            mydelegate1 md = new mydelegate1(s1.Uppercase);
+            Delegate[] del = md.GetInvocationList();
+            foreach (Delegate d in del)
+            {
+                Console.WriteLine(d.Method);
+                d.DynamicInvoke("Maharashtra");
+            }
 
-    //multicast Delegates
+        }
+    }
+
+    //multicast Delegates-single delegate hold reference of multiple methods.
     public delegate void mydelegate(string name);
     class Class2
     {
@@ -25,6 +50,8 @@ namespace MyProgram.PractiseDemo
             Class2 c2 = new Class2();
             mydelegate mydel = new mydelegate(c2.Uppercase);
             mydel += new mydelegate(c2.Lowercase);
+
+            mydel -= new mydelegate(c2.Uppercase);//remove the ref from the invocation list
 
             Delegate[] list = mydel.GetInvocationList();
             foreach(Delegate d in list)
@@ -77,6 +104,14 @@ namespace MyProgram.PractiseDemo
     }
 
 
+
+    /*Assignment: Create a class Bank, assign default account bal using constructor. Add debit method 
+    method with parameter debit amt, debit the amount from main bal,
+      if bal==0 -> raise an event bal is zero
+     if debit amt>bal -> raise an event ->
+    credit method with parameter credit amount 
+    Add amt to bal->display the updated ac balance.
+     */
     public delegate void mydel1();
     public class Bank
     {
