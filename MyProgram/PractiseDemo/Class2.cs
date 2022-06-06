@@ -96,6 +96,7 @@ namespace MyProgram.PractiseDemo
         }
         static void Main(string[] args)
         {
+
             student s1 = new student();
             s1.Fail += new mydel(failMsg);
             s1.Distinction += new mydel(DistinctionMsg);
